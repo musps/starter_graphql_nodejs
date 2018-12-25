@@ -1,11 +1,13 @@
 module.exports = `
+  scalar DateTime
+
   type User {
     id: ID!
     firstName: String!
     lastName: String!
     email: String!
     createdAt: String!
-    updatedAt: String!
+    updatedAt: DateTime!
     comments: [Comment]
   }
   type Comment {

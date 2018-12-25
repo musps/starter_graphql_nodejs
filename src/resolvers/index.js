@@ -1,32 +1,34 @@
+const DateTime = require('./scalars/DateTime.js')
+
 module.exports = {
+  DateTime,
   Query: {
-    users: (parent, args, { db }, info) => {
-      return db.User.findAll()
+    users: (parent, args, ctx, info) => {
+      return ctx.db.User.findAll()
     },
-    user: (parent, { id }, { db }, info) => {
-      return db.User.findOne({
+    user: (parent, args, ctx, info) => {
+      return ctx.db.User.findOne({
         where: {
-          id: id
+          id: args.id
         }
       })
     },
-    comments: (parent, args, { db }, info) => {
-      return db.Comment.findAll()
+    comments: (parent, args, ctx, info) => {
+      return ctx.db.Comment.findAll()
     },
-    commentsByUser: (parent, { id }, { db }, info) => {
-      return db.Comment.findAll({
+    commentsByUser: (parent, args, ctx, info) => {
+      return ctx.db.Comment.findAll({
         where: {
-          user: id
+          user: args.id
         }
       })
     },
   },
   User: {
-    comments: (parent, args, { db }, info) => {
-      const { id } = parent
-      return db.Comment.findAll({
+    comments: (parent, args, ctx, info) => {
+      return ctx.db.Comment.findAll({
         where: {
-          user: id
+          user: parent.id
         }
       })
     }

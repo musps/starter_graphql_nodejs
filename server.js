@@ -8,7 +8,7 @@ const typeDefs = require('./src/schemas/index.js')
 
 const server = new ApolloServer({
   typeDefs: gql(typeDefs),
-  resolvers,
+  resolvers: resolvers,
   context: {
     db: database
   }
