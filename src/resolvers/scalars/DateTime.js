@@ -1,6 +1,6 @@
 const { GraphQLScalarType } = require('graphql')
 
-const resolveDataTime = new  GraphQLScalarType({
+const resolveDataTime = new GraphQLScalarType({
   name: 'DateTime',
   description: 'Default scalar DateTime description',
   parseValue: (value) => {

@@ -24,4 +24,12 @@ module.exports = `
     comments: [Comment]
     commentsByUser(id: Int!): [Comment]
   }
+
+  type Mutation {
+    userCreate(
+      firstName: String!
+      lastName: String!
+      email: String
+    ): User
+  }
 `

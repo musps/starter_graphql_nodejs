@@ -24,6 +24,15 @@ module.exports = {
       })
     },
   },
+  Mutation: {
+    userCreate: (parent, args, ctx, info) => {
+      return ctx.db.User.create({
+        firstName: args.firstName,
+        lastName: args.lastName,
+        email: args.email || 'default_email&mock.com'
+      })
+    }
+  },
   User: {
     comments: (parent, args, ctx, info) => {
       return ctx.db.Comment.findAll({
