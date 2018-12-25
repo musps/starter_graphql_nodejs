@@ -8,9 +8,7 @@ module.exports = {
   UserAction: {
     userUpdate: (parent, args, ctx, info) => {
       return parent.update({
-        firstName: args.firstName,
-        lastName: args.lastName,
-        email: args.email
+        ...args
       })
     }
   },

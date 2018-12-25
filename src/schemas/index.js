@@ -28,9 +28,9 @@ module.exports = `
 
   type UserAction {
     userUpdate(
-      firstName: String!
-      lastName: String!
-      email: Email!
+      firstName: String
+      lastName: String
+      email: Email
     ): User
   }
 
