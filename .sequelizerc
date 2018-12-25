@@ -1,0 +1,9 @@
+const basePath = './src/database'
+const setPath = (path) => basePath + path
+
+module.exports = {
+  'config': setPath('/config/database.js'),
+  'models-path': setPath('/models'),
+  'seeders-path': setPath('/seeders'),
+  'migrations-path': setPath('/migrations')
+}
