@@ -1,7 +1,19 @@
 const DateTime = require('./scalars/DateTime.js')
+const Email = require('./scalars/Email.js')
+
 
 module.exports = {
   DateTime,
+  Email,
+  UserAction: {
+    userUpdate: (parent, args, ctx, info) => {
+      return parent.update({
+        firstName: args.firstName,
+        lastName: args.lastName,
+        email: args.email
+      })
+    }
+  },
   Query: {
     users: (parent, args, ctx, info) => {
       return ctx.db.User.findAll()
@@ -25,11 +37,18 @@ module.exports = {
     },
   },
   Mutation: {
+    User: (parent, args, ctx, info) => {
+      return ctx.db.User.findOne({
+        where: {
+          id: args.id
+        }
+      })
+    },
     userCreate: (parent, args, ctx, info) => {
       return ctx.db.User.create({
         firstName: args.firstName,
         lastName: args.lastName,
-        email: args.email || 'default_email&mock.com'
+        email: args.email || 'default_email@mock.com'
       })
     }
   },

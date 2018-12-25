@@ -1,5 +1,6 @@
 module.exports = `
   scalar DateTime
+  scalar Email
 
   type User {
     id: ID!
@@ -25,11 +26,20 @@ module.exports = `
     commentsByUser(id: Int!): [Comment]
   }
 
+  type UserAction {
+    userUpdate(
+      firstName: String!
+      lastName: String!
+      email: Email!
+    ): User
+  }
+
   type Mutation {
+    User(id: Int!): UserAction
     userCreate(
       firstName: String!
       lastName: String!
-      email: String
+      email: Email
     ): User
   }
 `

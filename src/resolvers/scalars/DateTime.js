@@ -1,6 +1,6 @@
 const { GraphQLScalarType } = require('graphql')
 
-const resolveDataTime = new GraphQLScalarType({
+const scalar = new GraphQLScalarType({
   name: 'DateTime',
   description: 'Default scalar DateTime description',
   parseValue: (value) => {
@@ -8,8 +8,7 @@ const resolveDataTime = new GraphQLScalarType({
     return value
   },
   serialize: (value) => {
-    const time = new Date(value)
-    return time.toUTCString()
+    return value
   },
   parseLiteral: (ast) => {
     console.log('parseLiteral', ast)
@@ -17,4 +16,4 @@ const resolveDataTime = new GraphQLScalarType({
   }
 })
 
-module.exports = resolveDataTime
+module.exports = scalar
