@@ -1,10 +1,7 @@
-const DateTime = require('./scalars/DateTime.js')
-const Email = require('./scalars/Email.js')
-
+const scalars = require('./scalars/index.js')
 
 module.exports = {
-  DateTime,
-  Email,
+  ...scalars,
   UserAction: {
     userUpdate: (parent, args, ctx, info) => {
       return parent.update({

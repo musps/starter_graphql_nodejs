@@ -1,45 +1,18 @@
-module.exports = `
-  scalar DateTime
-  scalar Email
+const fs = require('fs')
+const { gql } = require('apollo-server-express')
 
-  type User {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    email: String!
-    createdAt: String!
-    updatedAt: DateTime!
-    comments: [Comment]
-  }
-  type Comment {
-    id: ID!
-    user: Int!
-    content: String!
-    createdAt: String!
-    updatedAt: String!
-  }
+const getFile = (fileName) => {
+  const rootPath = './src/schemas'
+  const isFileExist = fileName => fs.existsSync(fileName)
+  const getFileContent = fileName => fs.readFileSync(fileName, 'utf8')
+  const tmpFileName = rootPath + fileName
 
-  type Query {
-    users: [User]
-    user(id: Int!): User
-    comments: [Comment]
-    commentsByUser(id: Int!): [Comment]
+  if (!isFileExist(tmpFileName)) {
+    return 'ERR_FILE_NOT_FOUND'
+  } else {
+    return getFileContent(tmpFileName)
   }
+}
 
-  type UserAction {
-    userUpdate(
-      firstName: String
-      lastName: String
-      email: Email
-    ): User
-  }
-
-  type Mutation {
-    User(id: Int!): UserAction
-    userCreate(
-      firstName: String!
-      lastName: String!
-      email: Email
-    ): User
-  }
-`
+const schema = getFile('/rootSchema.gql')
+module.exports = schema
