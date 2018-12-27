@@ -51,3 +51,11 @@ schema {
   mutation: Mutation
   subscription: Subscription
 }
+
+type Public {
+  users: [User]
+}
+
+extend type Query {
+  Public: Public
+}

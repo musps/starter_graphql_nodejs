@@ -9,15 +9,17 @@ const logger = require('./logger.js')
 const { createServer } = require('http');
 
 global.pubsub = new PubSub()
+global.userConnector = process.env.USER_CONNECTOR || ''
 
 const apolloServer = new ApolloServer({
   formatError: logger.formatError,
   formatResponse: logger.formatResponse,
   typeDefs: gql(typeDefs),
   resolvers: resolvers,
-  context: {
+  context: ({ req }) => ({
+    req,
     db: database
-  }
+  })
 })
 
 const env = process.env.APP_ENV || 'dev'

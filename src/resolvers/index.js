@@ -2,6 +2,11 @@ const scalars = require('./scalars/index.js')
 
 module.exports = {
   ...scalars,
+  Public: {
+    users: (parent, args, ctx, info) => {
+      return ctx.db.User.findAll({limit: 4})
+    }
+  },
   UserAction: {
     userUpdate: (parent, args, ctx, info) => {
       return parent.update({
@@ -10,6 +15,14 @@ module.exports = {
     }
   },
   Query: {
+    Public: (parent, args, ctx, info) => {
+      const userConnector = ctx.req.headers.user_connector || null
+      if (userConnector === null || userConnector !== global.userConnector) {
+        throw new Error('Access denied !')
+      }
+      // Return empty array. It keeps sub-requests alive.
+      return []
+    },
     users: (parent, args, ctx, info) => {
       return ctx.db.User.findAll()
     },
@@ -29,7 +42,7 @@ module.exports = {
           user: args.id
         }
       })
-    },
+    }
   },
   Mutation: {
     User: (parent, args, ctx, info) => {
@@ -62,7 +75,9 @@ module.exports = {
   },
   Subscription: {
     userCreated: {
-      subscribe: () => global.pubsub.asyncIterator('USER_CREATED')
+      subscribe: () => {
+        return global.pubsub.asyncIterator('USER_CREATED')
+      }
     }
   }
 }
