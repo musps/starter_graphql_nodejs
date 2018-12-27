@@ -42,7 +42,12 @@ type Mutation {
   ): User
 }
 
+type Subscription {
+  userCreated: User
+}
+
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }

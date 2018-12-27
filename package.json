@@ -10,13 +10,16 @@
   "author": "Sercan YILDIZ <ysercanz@gmail.com> (https://twitter.com/e34Maby88)",
   "license": "ISC",
   "dependencies": {
+    "apollo-server": "^2.3.1",
     "apollo-server-express": "^2.3.1",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "graphql": "^14.0.2",
     "mysql2": "^1.6.4",
     "sequelize": "^4.42.0",
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "subscriptions-transport-ws": "^0.9.15"
   }
 }

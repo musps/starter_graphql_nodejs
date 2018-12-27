@@ -40,11 +40,15 @@ module.exports = {
       })
     },
     userCreate: (parent, args, ctx, info) => {
-      return ctx.db.User.create({
+      const user = ctx.db.User.create({
         firstName: args.firstName,
         lastName: args.lastName,
         email: args.email || 'default_email@mock.com'
       })
+      global.pubsub.publish('USER_CREATED', {
+        userCreated: user
+      })
+      return user
     }
   },
   User: {
@@ -54,6 +58,11 @@ module.exports = {
           user: parent.id
         }
       })
+    }
+  },
+  Subscription: {
+    userCreated: {
+      subscribe: () => global.pubsub.asyncIterator('USER_CREATED')
     }
   }
 }
