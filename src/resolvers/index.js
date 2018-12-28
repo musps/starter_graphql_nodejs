@@ -1,4 +1,5 @@
 const scalars = require('./scalars/index.js')
+const pubsub = require('../pubsub.js')
 
 module.exports = {
   ...scalars,
@@ -58,7 +59,7 @@ module.exports = {
         lastName: args.lastName,
         email: args.email || 'default_email@mock.com'
       })
-      global.pubsub.publish('USER_CREATED', {
+      pubsub.publish('USER_CREATED', {
         userCreated: user
       })
       return user
@@ -76,7 +77,7 @@ module.exports = {
   Subscription: {
     userCreated: {
       subscribe: () => {
-        return global.pubsub.asyncIterator('USER_CREATED')
+        return pubsub.asyncIterator('USER_CREATED')
       }
     }
   }

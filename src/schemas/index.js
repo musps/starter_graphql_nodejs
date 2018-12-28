@@ -15,4 +15,4 @@ const getFile = (fileName) => {
 }
 
 const schema = getFile('/rootSchema.gql')
-module.exports = schema
+module.exports = gql(schema)
