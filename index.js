@@ -42,7 +42,6 @@ if (!isHttps) {
 } else {
   const httpsKey = process.env.APP_HTTPS_KEY || ''
   const httpsCert = process.env.APP_HTTPS_CERT || ''
-
   server = createServer.https({
     port: port,
     hostname,

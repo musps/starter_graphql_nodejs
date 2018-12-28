@@ -4,14 +4,14 @@ const https = require('https')
 
 const getFileOrThrowErr = (fileName, errorMsg) => {
   const isFileExist = fileName => fs.existsSync(fileName)
-  const getFileContent = fileName => fs.readFileSync(fileName, 'utf8')
+  const getFileContent = fileName => fs.readFileSync(fileName)
 
   if (!isFileExist) {
     throw new Error(errorMsg)
     process.exit(1)
   }
 
-  return getFileContent(tmpFileName)
+  return getFileContent(fileName)
 }
 
 const loadHttpsConfig = ({ hostname, port, key, cert }) => {
@@ -21,8 +21,8 @@ const loadHttpsConfig = ({ hostname, port, key, cert }) => {
   return {
     hostname,
     port,
-    key,
-    cert
+    key: getFileOrThrowErr(key, keyErrorMsg),
+    cert: getFileOrThrowErr(cert, certErrorMsg)
   }
 }
 
@@ -31,7 +31,7 @@ const createServerHTTP = ({ port, hostname, app }) => {
   return server
 }
 
-const createServerHTTPS = (port, hostname, key, cert, app) => {
+const createServerHTTPS = ({ port, hostname, key, cert, app }) => {
   const options = loadHttpsConfig({
     hostname,
     port,
