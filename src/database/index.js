@@ -22,6 +22,11 @@ try {
     config.username,
     config.password,
     {
+      define: {
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+        timestamps: true
+      },
       dialect: config.dialect,
       logging: logger,
       freezeTableName: true,
