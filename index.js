@@ -1,11 +1,15 @@
 const dotenv = require('dotenv').config()
 const express = require('express')
 const { ApolloServer, makeExecutableSchema } = require('apollo-server-express')
+
+const createServer = require('./createServer.js')
+
 const database = require('./src/database/index.js')
+
 const resolvers = require('./src/resolvers/index.js')
 const typeDefs = require('./src/schemas/index.js')
 const logger = require('./src/logger.js')
-const createServer = require('./createServer.js')
+const directiveResolvers = require('./src/resolvers/directives/index.js')
 
 global.userConnector = process.env.USER_CONNECTOR || ''
 
@@ -19,22 +23,7 @@ let server = null
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
-  directiveResolvers: {
-    isAuthenticated: async (next, source, args, ctx) => {
-      const userConnector = ctx.req.headers.user_connector || null
-
-      if (userConnector === null || userConnector !== global.userConnector) {
-        throw new Error('Access denied !')
-      } else {
-        return next()
-      }
-    },
-    datetime: async (next, source, args, ctx) => {
-      const value = await next()
-      const { format } = args
-      return format
-    }
-  },
+  directiveResolvers: directiveResolvers,
   resolverValidationOptions: {
     requireResolversForResolveType: false
   }
