@@ -1,3 +1,6 @@
+directive @datetime(format: String) on FIELD_DEFINITION
+directive @isAuthenticated on QUERY | FIELD_DEFINITION
+
 scalar DateTime
 scalar Email
 
@@ -7,9 +10,19 @@ type User {
   lastName: String!
   email: String!
   createdAt: String!
-  updatedAt: DateTime!
+  updatedAt: String! @datetime(format: "mmmm d, yyyy")
   comments: [Comment]
 }
+
+fragment UserFragment on User {
+  id
+  firstName
+  lastName
+  email
+  createdAt
+  updatedAt
+}
+
 type Comment {
   id: ID!
   user: Int!
@@ -19,7 +32,7 @@ type Comment {
 }
 
 type Query {
-  users: [User]
+  users: [User] @isAuthenticated
   user(id: Int!): User
   comments: [Comment]
   commentsByUser(id: Int!): [Comment]

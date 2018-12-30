@@ -27,7 +27,7 @@ module.exports = {
     users: (parent, args, ctx, info) => {
       return ctx.db.User.findAll()
     },
-    user: (parent, args, ctx, info) => {
+    user: async (parent, args, ctx, info) => {
       return ctx.db.User.findOne({
         where: {
           id: args.id
