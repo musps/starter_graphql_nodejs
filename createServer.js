@@ -6,9 +6,9 @@ const getFileOrThrowErr = (fileName, errorMsg) => {
   const isFileExist = fileName => fs.existsSync(fileName)
   const getFileContent = fileName => fs.readFileSync(fileName)
 
-  if (!isFileExist) {
+  if (!isFileExist(fileName)) {
     throw new Error(errorMsg)
-    process.exit(1)
+    process.exit()
   }
 
   return getFileContent(fileName)

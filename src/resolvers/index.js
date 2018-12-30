@@ -4,10 +4,9 @@ const UserModel = require('./models/User.js')
 
 module.exports = {
   Query: {
-    users: UserModel.fetchUsers,
-    user: UserModel.fetchUserById
+    ...UserModel.Query
   },
   Mutation: {
-    userCreate: UserModel.createUser
+    ...UserModel.Mutation
   }
 }

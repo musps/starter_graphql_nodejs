@@ -15,7 +15,11 @@ const createUser = (parent, args, ctx, info) => {
 }
 
 module.exports = {
-  fetchUsers,
-  fetchUserById,
-  createUser
+  Query: {
+    users: fetchUsers,
+    user: fetchUserById,
+  },
+  Mutation: {
+    userCreate: createUser
+  }
 }
