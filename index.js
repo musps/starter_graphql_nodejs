@@ -9,7 +9,7 @@ const database = require('./src/database/index.js')
 const resolvers = require('./src/resolvers/index.js')
 const typeDefs = require('./src/schemas/index.js')
 const logger = require('./src/logger.js')
-const directiveResolvers = require('./src/resolvers/directives/index.js')
+const directives = require('./src/resolvers/directives/index.js')
 
 global.userConnector = process.env.USER_CONNECTOR || ''
 
@@ -23,7 +23,8 @@ let server = null
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
-  directiveResolvers: directiveResolvers,
+  schemaDirectives: directives.schemaDirectives,
+  directiveResolvers: directives.directiveResolvers,
   resolverValidationOptions: {
     requireResolversForResolveType: false
   }
@@ -65,6 +66,8 @@ if (!isHttps) {
 
 apolloServer.installSubscriptionHandlers(server);
 server.listen({ port }, () => {
-  console.log('🚀 Server ready at localhost:' + port + apolloServer.graphqlPath)
+  const uriSchema = isHttps ? 'https' : 'http'
+  const uri = `${uriSchema}://${hostname}:${port}${apolloServer.graphqlPath}`
+  console.log('🚀 Server ready at ' + uri)
   console.log('🚀 ENV : ' + env)
 })

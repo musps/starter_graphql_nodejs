@@ -1,3 +1,10 @@
+directive @length(
+  min: Int = UNDEFINED,
+  max: Int = UNDEFINED
+) on | INPUT_FIELD_DEFINITION
+
+directive @isAuthenticated on QUERY | FIELD_DEFINITION
+
 type User {
   id: ID!
   username: String!
@@ -12,7 +19,7 @@ type User {
 }
 
 input userCreateInput {
-  username: String!
+  username: String! @length(min: 3, max: 10)
   password: String!
   firstName: String!
   lastName: String!

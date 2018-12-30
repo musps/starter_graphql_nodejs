@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(50)
       },
-      rangk: {
+      rank: {
         allowNull: false,
         type: Sequelize.STRING(50)
       },

@@ -1,7 +1,11 @@
 const isAuthenticated = require('./isAuthenticated.js')
-const datetime = require('./datetime.js')
+const LengthDirective = require('./length.js')
 
 module.exports = {
-  isAuthenticated,
-  datetime
+  schemaDirectives: {
+    length: LengthDirective
+  },
+  directiveResolvers: {
+    isAuthenticated: isAuthenticated
+  }
 }

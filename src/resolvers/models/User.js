@@ -11,7 +11,7 @@ const fetchUserById = (parent, args, ctx, info) => {
 }
 
 const createUser = (parent, args, ctx, info) => {
-  return ctx.db.User.create({...args})
+  return ctx.db.User.create({...args.input})
 }
 
 module.exports = {
