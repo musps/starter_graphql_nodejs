@@ -39,7 +39,7 @@ const apolloServerConfig = {
     db: database
   }),
   playground: (process.env.APP_ENV !== 'prod'),
-  debug: false,
+  debug: true,
 }
 
 const apolloServer = new ApolloServer(apolloServerConfig)

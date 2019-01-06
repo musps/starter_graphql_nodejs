@@ -7,6 +7,13 @@ const info = {
   description: 'Scalar type wrapper for input validation'
 }
 
+class CustomError extends Error {
+  constructor(message, code) {
+    super(message)
+    this.code = code
+  }
+}
+
 class LengthConstraint {
   constructor(props) {
     this.info = props.info
@@ -14,13 +21,13 @@ class LengthConstraint {
   }
 
   throwError(min, max) {
-    throw new Error(`value must be between ${min} and ${max}`)
+    throw new CustomError(`value must be between ${min} and ${max}`, 400)
   }
 
   validate(value) {
     const { min, max } = this.args
     if (value.length < min || value.length > max) {
-      this.throwError(min, max)
+      return this.throwError(min, max)
     }
     return value
   }

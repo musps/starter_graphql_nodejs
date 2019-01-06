@@ -8,6 +8,7 @@ const scalar = new GraphQLScalarType({
     return value
   },
   serialize: (value) => {
+    console.log('serialize', value)
     return value
   },
   parseLiteral: (ast) => {

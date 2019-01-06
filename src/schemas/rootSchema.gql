@@ -1,9 +1,17 @@
 directive @length(
   min: Int = UNDEFINED,
   max: Int = UNDEFINED
-) on | INPUT_FIELD_DEFINITION
+) on INPUT_FIELD_DEFINITION
 
 directive @isAuthenticated on QUERY | FIELD_DEFINITION
+
+scalar Email
+scalar DateTime
+
+type Error {
+  field: String!
+  message: String!
+}
 
 type User {
   id: ID!
@@ -16,14 +24,15 @@ type User {
   isActive: String!
   createdAt: String!
   updatedAt: String!
+  errors: [Error]
 }
 
 input userCreateInput {
-  username: String! @length(min: 3, max: 10)
-  password: String!
-  firstName: String!
-  lastName: String!
-  email: String!
+  username: String! @length(min: 3, max: 50)
+  password: String! @length(min: 3, max: 50)
+  firstName: String! @length(min: 3, max: 50)
+  lastName: String! @length(min: 3, max: 50)
+  email: String! @length(min: 3, max: 50)
 }
 
 type Query {

@@ -3,6 +3,7 @@ const pubsub = require('../pubsub.js')
 const UserModel = require('./models/User.js')
 
 module.exports = {
+  ...scalars,
   Query: {
     ...UserModel.Query
   },
